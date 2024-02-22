@@ -7,33 +7,47 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'todos/static.css' %}">
+    <link href="{% static "todos/style.css" %}" rel= "stylesheet">
     <style>
         body{
-            background-color: aqua;
-            align-items: center;
-            border: 2ch;
+            text-align: center;
+            background-color: aquamarine;
+            margin-left: 5%;
+            margin-top: 5%;  
         }
-        p{
-            
-        }
+        #head{
+            transition: width 2s, height 4s; 
+            font-size: 40px;  
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-style: oblique;            
+        }p{
+            align-items: center; 
+            flex-direction: column;
+        }                
     </style>
 </head>
 <body>
-<p> todo list items</p>
-    <form action="{% url "insert" %}" method = "POST" autocomplete = "off">
+   
+<p id="head"> <u>Todo list items</u></p>
+    <div><form action="{% url "insert" %}" method = "POST" autocomplete = "off">
         {% csrf_token %}
         <input type = "text" class = "form-control" name = "content">
         <button type="submit">submit</button>
-
     </form>
-    {% for i in item %}
-        <p>{{i.content}}
+    </div>
+    
+
+    {% for i in item %}   
+    <p>
+        
             <form action="{% url "delete" i.id %}" method = "POST" >
-            {% csrf_token %}
-            <button type="submit"> delete </button>
+                {% csrf_token %}
+                {{i.content}}
+            <button id="button"type="submit"> delete </button>
             </form>
-        </p>
+    </p>
+            
+        
     {% endfor %}
 
 </body>
